@@ -1,0 +1,67 @@
+\documentclass[12pt]{extarticle}
+
+%
+%   Packages
+%
+\usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage[sorting=none]{biblatex}
+\usepackage[acronym]{glossaries}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{setspace}
+\usepackage{subcaption}
+
+%
+%   Line spacing
+%
+\setstretch{1.5}
+
+
+%
+%   Utilities and costants
+%
+\def\blankpage{
+    \clearpage
+    \thispagestyle{empty}
+    \addtocounter{page}{-1}
+    \null
+    \clearpage
+}
+
+%
+%   References
+%
+\addbibresource{formats/references.bib}
+
+%
+%   Document
+%
+\begin{document}
+    \input{includes/titlepage.tex}
+    %\blankpage
+    \clearpage
+    \tableofcontents{}
+    \clearpage
+    \listoffigures
+    \printacronyms
+    \clearpage
+    \input{includes/introduction.tex}
+    \clearpage
+    \input{includes/smb.tex}
+    \clearpage
+    \input{includes/vulnerabilities.tex}
+    \clearpage
+    \input{includes/memory.tex}
+    \clearpage
+    \input{includes/doublepulsar.tex}
+    \clearpage
+    \input{includes/exploit.tex}
+    \clearpage
+    \input{includes/conclusions.tex}
+
+    \printbibliography[
+        heading=bibintoc,
+        title={Bibliografia}
+    ]
+\end{document}

@@ -1,6 +1,7 @@
 \section{Memory analysis}
-In thi section it will be explained how the SMB buffers are stored in the Windows systems. This is very important in order to know 
-what the attacker is overflowing and how he can be able to execute the code.
+In this section it will be explained how the SMB buffers are stored in the Windows systems. This is very important in order to know 
+what the attacker is overflowing and how he can be able to execute the code.\\
+At the end of the section ther will be a short overview about the grooming technique, a procedure to predict where is the next memory alocation.
 \subsection{Srvnet buffers}
 A srvnet buffer is a struct used to store the content of smb transactions, it is composed by three components:
 \begin{itemize}
@@ -12,9 +13,11 @@ A srvnet buffer is a struct used to store the content of smb transactions, it is
 
 \begin{figure}[ht!]
     \centering
-      \includegraphics[]{images/srvnet_buffer.png}
+      \includegraphics[scale=0.7]{images/srvnet_buffer.png}
       \caption{Srvnet buffer}
 \end{figure}
+
+\clearpage
 
 \subsection{Hal's Heap}
 The Windows Hardware Abstraction Layer (HAL) is a module that runs in kernel mode and it is loaded on Windows boot. It consists in a set of routines to access hardware resources
@@ -31,4 +34,30 @@ It is clear now that this part of memory is perfect for the exploitation, here i
       \caption{Hardware description layer}
 \end{figure}
 
+\clearpage
+
 \subsection{Grooming technique}
+If the attacker wants to use a buffer overflow as a remote code execution, he has to control the memory that he is overwriting. There are many ways to do it, in 
+the case of EternalBlue this is done by the grooming technique. This method is based on the concept that the memory allocations tend to reuse the same chunks of memory. So if the 
+attacker allocates a buffer of X bytes and the free it, it is very probable that if he does another malloc() of X bytes it will be stored in the same location.\\
+Thanks to that, the attacker can predict the location where the buffer will be stored by creating a custom-sized memory and free it just before he needs to store the new buffer. In the case of 
+EternalBlue this technique will be used by doing a small heap allocation with secondary transaction and a custom-sized heap allocation with the vulnerabilty explained in 3.3
+The following images shows the passages used for this technique.
+
+\begin{figure}[ht!]
+    \centering
+      \includegraphics[scale=0.5]{images/grooming_malloc.png}
+      \caption{Hardware description layer}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+      \includegraphics[scale=0.5]{images/grooming_free.png}
+      \caption{Hardware description layer}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+      \includegraphics[scale=0.5]{images/grooming_prediction.png}
+      \caption{Hardware description layer}
+\end{figure}

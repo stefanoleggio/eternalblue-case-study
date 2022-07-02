@@ -13,7 +13,7 @@ The Windows implementation of SMB version 1 is an extension of the already exist
 which was the network file-sharing protocol for Windows NT.
 SMB added some features on security and disk management, but most importantly it substituted the old NetBios service with an entire 
 TCP connection.\\
-In the SMB V1 there are three phases:
+In the SMB V1 there are three phases\cite{microsoft-smb}:
 \begin{itemize}
     \item Establishing a TCP session
     \item Negotiating a Dialect
@@ -26,7 +26,7 @@ The Windows Server that receives the SMB request has a driver caled Srv.sys that
 
 \subsection{Structure}
 The SMB packets are divided into three parts: Header, Parameter Block and the Data block.\\
-The Header block has the following parts:
+The Header block has the following parts\cite{microsoft-smb}:
 \begin{itemize}
     \item Command: SMB query to run into the server
     \item Flags: it indicates if it is a response or a request
@@ -53,7 +53,7 @@ From a packet view, they are just an SMB messages that embeds another SMB messag
       \caption{SMB transaction packet structure}
 \end{figure}
 
-In each Transaction there are the following parameters:
+In each Transaction there are the following parameters\cite{microsoft-transactions}:
 \begin{itemize}
     \item Offset: indicates when the data block begins
     \item Count
@@ -62,7 +62,7 @@ In each Transaction there are the following parameters:
 \end{itemize}
 
 When a Transaction has a data block bigger then the maxBufSize specified in the connection establishment, the server requests some Transaction Secondary in order
-to complete the data transfer.
+to complete the data transfer\cite{microsoft-transactions}.
 There are different kind of this Transaction Secondary due to the different versions of the SMB implementation like Transaction2, TransactionSecondary or NTTransaction2.
 \begin{figure}[ht!]
     \centering

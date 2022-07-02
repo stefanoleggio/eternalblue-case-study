@@ -36,7 +36,7 @@ If it is not correct and it is more tha what is expected it changes the value of
 
 \noindent This size fixing operation is the vulnerability.
 Indeed, it considers the cbList as a UShort type (16 bit), instead it is a ULong type (32bit).
-Because of that it allocates less space then what the list needs causing an overflow of the NT buffer in the heap.
+Because of that it allocates less space then what the list needs causing an overflow of the NT buffer in the heap\cite{exploit-db}.
 The following image shows clearly the incompatible types of cbList and the method SmbPutUshort().
 \begin{figure}[ht!]
   \centering

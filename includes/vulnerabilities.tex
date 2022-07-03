@@ -1,11 +1,11 @@
 \section{Vulnerabilities}
-In the following sections will be explained the main vunerabilities that EternalBlue uses to complete the remote code execution. 
-Then, in the section Exploit (6.0) they will be liked togheter for the final overview of the attack.
+In the following sections will be explained the main vulnerabilities that EternalBlue uses to complete the remote code execution. 
+Then, in the section Exploit (6.0) they will be liked together for the final overview of the attack.
 
 \subsection{Integer cast error}
 This vulnerability is due to an error in the computation of the allocation size of a buffer, it is considered the main bug because it is the one that creates the buffer overflow.\\
 SMB gives the possibility to include in the headers of the message the File Extended Attributes (FEA) which is a data structure that 
-associates files with metadata. Because there is the possibility to include more than one file, the FEAs are grouped up ina list structure called FEAList.
+associates files with metadata. Because there is the possibility to include more than one file, the FEAs are grouped up i na list structure called FEAList.
 The following image shows how these two struct are composed.
 
 \begin{figure}[ht!]
@@ -23,10 +23,10 @@ a custom list called NTFEAList, the following image shows how it is composed.
     \caption{Windows NTFEAList}
 \end{figure}
 \noindent The two struct are quite different, so the server has to manage a cast function.\\
-One of the first things that the cast function has to do is compunting the size of the buffer that has to be allocated fot the NTFEAList. To do that 
+One of the first things that the cast function has to do is computing the size of the buffer that has to be allocated for the NTFEAList. To do that 
 it looks to the value of cbList in the FEAList.
 This function also checks that the value of cbList corresponds to the actual length of the FEAList, this is done by iterating over all the FEAs in the while cycle.
-In case the value of cbList is not correct and it is more tha what it is expected it changes the value of cbList with the real list size.\\
+In case the value of cbList is not correct and it is more that what it is expected it changes the value of cbList with the real list size.\\
 The following image shows the NTFEAList buffer size computation function.
 
 \begin{figure}[ht!]
@@ -73,7 +73,7 @@ In the implementation of SMB V1 there are two kinds of authentication:
   \item LM/NTLM
   \item NTLMv2
 \end{itemize}
-The choice between these two is done at the beginning of the session setup with the command
+The choice between is done at the beginning of the session setup with the command
 SMB\_COM\_SESSION\_SETUP\_ANDX containing the parameters of LM/NTM or NTMv2.
 The following images shows how these parameters and values are composed.
 
@@ -128,4 +128,4 @@ The following image shows the server side function for the detection of the auth
 
 \noindent Now the server thinks that the words in the structure are 13 instead of 12. Because of that the server reads the ByteCount value inside the 
 SMB\_STRING buffers, so the attacker is able to allocate how much memory he wants. \\
-This is called remote heap allocation and it will be very useful to controll in which part of the memory the NT buffer overflows.
+This is called remote heap allocation and it will be very useful to control in which part of the memory the NT buffer overflows.

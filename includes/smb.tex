@@ -1,5 +1,5 @@
 \section{SMB protocol}
-Before entering in the details of the exploit, it is important to describe what is the SMB 
+Before entering the details of the exploit, it is important to describe what is the SMB 
 protocol and how it works.\\
 The Server Message Block (SMB) is a procol based on TCP/IP used for file and printer sharing 
 inside a local network.
@@ -22,7 +22,7 @@ In the SMB V1 there are three phases\cite{microsoft-smb}:
 \end{itemize}
 It is important to notice that during the establishing of the SMB connection the client and server decide which is the maximum
 buffer size for each SMB message (also called transaction).
-The Windows Server that receives the SMB request has a driver caled \textit{srv.sys} that aims to load balance the queue of the SMB commands received.
+The Windows Server that receives the SMB request has a driver called \textit{srv.sys} that aims to load balance the queue of the SMB commands received.
 
 \clearpage
 
@@ -73,5 +73,5 @@ to complete the data transfer\cite{microsoft-transactions}.\\
       \caption{Transactions exchange scheme}
 \end{figure}
 
-\noindent There are different kind of Transaction Secondary due to the different versions of the SMB implementation,
+\noindent There are different kinds of Transaction Secondary due to the different versions of the SMB implementation,
 some examples are: Transaction2, TransactionSecondary or NTTransaction2.

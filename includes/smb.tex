@@ -73,5 +73,14 @@ to complete the data transfer\cite{microsoft-transactions}.\\
       \caption{Transactions exchange scheme}
 \end{figure}
 
-\noindent There are different kinds of Transaction Secondary due to the different versions of the SMB implementation,
-some examples are: Transaction2, TransactionSecondary or NTTransaction2.
+\noindent There are different kinds of Transaction, each of which is used for different scopes:
+\begin{itemize}
+    \item SMB\_COM\_TRANSACTION2: normal transactions used for manage file attributes (FEAs), they use WORD size parameters
+    \item SMB\_COM\_NT\_TRANSACT: larger transactions that allow for the transfer of very large blocks of data,
+    they use DWORD size parameters
+\end{itemize}
+Of course, both of these transaction types have their own secondary version, used for complete large transactions:
+\begin{itemize}
+    \item SMB\_COM\_TRANSACTION2\_SECONDARY
+    \item SMB\_COM\_NT\_TRANSACT\_SECONDARY
+\end{itemize}

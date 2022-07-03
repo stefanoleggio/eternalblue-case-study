@@ -3,7 +3,7 @@ In this section it will be explained how the SMB buffers are stored in the Windo
 what the attacker is overflowing and how he can be able to execute the code.\\
 At the end of the section there will be a short overview about the grooming technique, a procedure used to predict where is the next memory allocation.
 \subsection{Srvnet buffers}
-A srvnet buffer is a struct used to store the content of smb transactions, it is composed by three components:
+A srvnet buffer is a struct used to store the content of smb transactions, it is composed by three components\cite{eternalblue-checkpoint}:
 \begin{itemize}
     \item srvnet\_wsk\_struct: It contains a list of functions pointers, they are executed by the server machine in some specific occasion. For example
     when the connection is stopped it executes the function SrvNetWskReceiveComplete() to process the data in the buffer.
@@ -20,7 +20,7 @@ A srvnet buffer is a struct used to store the content of smb transactions, it is
 \clearpage
 
 \subsection{Hal's Heap}
-The Windows Hardware Abstraction Layer (HAL) is a module that runs in kernel mode and it is loaded on Windows boot. It consists in a set of routines to access hardware resources
+The Windows Hardware Abstraction Layer (HAL)\cite{windows-hal} is a module that runs in kernel mode and it is loaded on Windows boot. It consists in a set of routines to access hardware resources
 through programming interface. This is used to allow programmers to write software which is hardware-indipendent.\\
 This is a particular heap in Windows because the Address Space Layout Randomization (ASLR), which consists in the randomization of the memory addresses,
 doesn't regard the ones in the HAL's heap which are always costant.
@@ -38,7 +38,7 @@ It is clear now that this part of memory is perfect for the exploitation, indeed
 
 \subsection{Grooming technique}
 If the attacker wants to use a buffer overflow as a remote code execution, he has to control the memory that he is overwriting. There are many ways to do it, in 
-the case of EternalBlue this is done with the grooming technique. This method is based on the concept that the memory allocations tend to reuse the same chunks of memory. So if the 
+the case of EternalBlue this is done with the grooming technique\cite{eternalblue-analysis}. This method is based on the concept that the memory allocations tend to reuse the same chunks of memory. So if the 
 attacker allocates a buffer of X bytes and then free it, it is very probable that if he does another malloc() of X bytes it will be stored in the same location.\\
 Thanks to that, the attacker can predict the location where the buffer will be stored by creating a custom-sized memory and free it just before he needs to store the new buffer. In the case of 
 EternalBlue this technique will be used by doing a small heap allocation with secondary transaction and a custom-sized heap allocation with the vulnerability explained in 3.3.
